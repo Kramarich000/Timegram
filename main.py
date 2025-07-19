@@ -1,13 +1,17 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI
 from update_avatar import update_telegram_avatar
-from qstash_utils import verify_qstash_signature
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import asyncio
 
 app = FastAPI()
+scheduler = AsyncIOScheduler()
 
 @app.post("/update-avatar")
-async def update_avatar(request: Request):
-    if not await verify_qstash_signature(request):
-        raise HTTPException(status_code=403, detail="Invalid signature")
-
+async def update_avatar():
     await update_telegram_avatar()
     return {"status": "Avatar updated"}
+
+@app.on_event("startup")
+async def startup_event():
+    scheduler.add_job(update_telegram_avatar, 'interval', minutes=1)
+    scheduler.start()
