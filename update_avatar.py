@@ -6,7 +6,7 @@ load_dotenv()
 
 api_id = os.getenv("TG_API_ID")
 api_hash = os.getenv("TG_API_HASH")
-session_name = os.getenv("TG_SESSION_NAME")
+session_name = os.path.join("/tmp", os.getenv("TG_SESSION_NAME", "session"))
 
 async def update_telegram_avatar():
     if not api_id or not api_hash or not session_name:
