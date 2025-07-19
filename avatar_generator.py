@@ -7,7 +7,7 @@ def generate_avatar(path="avatar.jpg"):
     draw = ImageDraw.Draw(img)
 
     try:
-        font = ImageFont.truetype("arial.ttf", 100)
+        font = ImageFont.truetype("ARIAL.TTF", 100)
     except:
         font = ImageFont.load_default()
 
