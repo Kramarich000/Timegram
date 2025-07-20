@@ -1,8 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
+from zoneinfo import ZoneInfo  
 
 def generate_avatar(path="avatar.jpg"):
-    now = datetime.now().strftime("%H:%M")
+    now = datetime.now(ZoneInfo("Europe/Moscow")).strftime("%H:%M")  
     img = Image.new('RGB', (512, 512), color=(0, 0, 0))
     draw = ImageDraw.Draw(img)
 
